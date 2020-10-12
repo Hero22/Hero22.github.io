@@ -81,17 +81,17 @@
 <meta property="og:site_name" content="趁早">
 <meta property="og:description" content="123456789101112// 看看最后判断的结果是什么 -----------jdk1.8之后-------------public static void main(String[] args) &amp;#123;    String str = new StringBuilder(&quot;str&quot;).append(&quot;str&quot;).toString();    String str1 = new Str">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/str.png">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/str1.png">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/strstr1.png">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/strstr.png">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/str2.png">
-<meta property="og:image" content="https://image.zero22.top/string_in_java/figstr.png">
-<meta property="og:updated_time" content="2020-10-12T10:36:23.033Z">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig1.png">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig2.png">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig3.png">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig4.png">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig5.png">
+<meta property="og:image" content="https://zero22.top/2020/07/31/string-in-java/fig6.png">
+<meta property="og:updated_time" content="2020-10-12T11:55:20.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java中的String">
 <meta name="twitter:description" content="123456789101112// 看看最后判断的结果是什么 -----------jdk1.8之后-------------public static void main(String[] args) &amp;#123;    String str = new StringBuilder(&quot;str&quot;).append(&quot;str&quot;).toString();    String str1 = new Str">
-<meta name="twitter:image" content="https://image.zero22.top/string_in_java/str.png">
+<meta name="twitter:image" content="https://zero22.top/2020/07/31/string-in-java/fig1.png">
 
 
 
@@ -324,7 +324,7 @@
 <h3 id="case1"><a href="#case1" class="headerlink" title="case1"></a>case1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str = <span class="keyword">new</span> StringBuilder(<span class="string">"str"</span>).append(<span class="string">"str"</span>).toString();</span><br><span class="line">    System.out.println(<span class="string">"debug"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在上述输出语句打上断点，用<code>jps</code>查看进程id，用<code>jhsdb hsdb --pid id</code>连上该进程</p>
 <p>依次点击<code>Tools-&gt;Object Histogram</code>, 在列出来的类中双击<code>String</code>类型，然后找到上边写的<code>str</code>串，如下图</p>
-<p><img src="https://image.zero22.top/string_in_java/str.png" alt></p>
+<p><img src="fig1.png" alt></p>
 <p>发现如下三点：</p>
 <ol>
 <li>字符串已经排好序了</li>
@@ -334,19 +334,19 @@
 <p>通过依次点击<code>Tools-&gt;Heap Parameters</code>，可以看到当前堆的地址范围，比较得知，上述提到的两个字符串的地址是在堆范围内的。</p>
 <h3 id="case2"><a href="#case2" class="headerlink" title="case2"></a>case2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str1 = <span class="keyword">new</span> String(<span class="string">"str1"</span>);</span><br><span class="line">    System.out.println(<span class="string">"debug"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这次只修改了字符串的声明，仍然按照上述步骤，看到的信息如下</p>
-<p><img src="https://image.zero22.top/string_in_java/str1.png" alt></p>
+<p><img src="fig2.png" alt></p>
 <p>发现这里出现了两个<code>str1</code>，继续</p>
 <h3 id="case3"><a href="#case3" class="headerlink" title="case3"></a>case3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str = <span class="keyword">new</span> StringBuilder(<span class="string">"str"</span>).append(<span class="string">"str1"</span>).toString();</span><br><span class="line">    System.out.println(<span class="string">"debug"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对<strong>case1</strong>进行修改，<code>append</code>一个不一样的串，结果如下</p>
-<p><img src="https://image.zero22.top/string_in_java/strstr1.png" alt></p>
+<p><img src="fig3.png" alt></p>
 <p>在类似的地址上找到了三个串，继续变</p>
 <h3 id="case4"><a href="#case4" class="headerlink" title="case4"></a>case4</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str = <span class="keyword">new</span> StringBuilder(<span class="string">"str"</span>).toString();</span><br><span class="line">    System.out.println(<span class="string">"debug"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这次也不追加了，就一个，结果如下</p>
-<p><img src="https://image.zero22.top/string_in_java/strstr.png" alt></p>
+<p><img src="fig4.png" alt></p>
 <p>结果和<strong>case2</strong>一样，继续</p>
 <h3 id="case5"><a href="#case5" class="headerlink" title="case5"></a>case5</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String str2 = <span class="string">"str2"</span>;</span><br><span class="line">    System.out.println(<span class="string">"debug"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>结果如下，只有一个串</p>
-<p><img src="https://image.zero22.top/string_in_java/str2.png" alt></p>
+<p><img src="fig5.png" alt></p>
 <hr>
 <p>下面对上边五种情况作个小结，含有<strong>猜</strong>的成分</p>
 <ul>
@@ -363,7 +363,7 @@
 <li><code>str2 == str1.intern()</code> 由于<code>str2</code>在创建时，发现<strong>字符串常量池</strong>已经有指向<code>&quot;str1&quot;</code>字面值的引用了，因此直接返回了，相当与<code>str2 ---&gt; H1 &lt;--- str1.intern()</code>，指向相同的地址，返回<code>true</code></li>
 </ol>
 <p>再对这个例子画个小图</p>
-<p><img src="https://image.zero22.top/string_in_java/figstr.png" alt></p>
+<p><img src="fig6.png" alt></p>
 <hr>
 <p>最后再引用一些其他说法</p>
 <p><a href="http://tangxman.github.io/2015/07/27/the-difference-of-java-string-pool/" target="_blank" rel="noopener">http://tangxman.github.io/2015/07/27/the-difference-of-java-string-pool/</a> </p>
@@ -417,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/10/12/poj2441/" rel="prev" title="poj2441">
-                poj2441 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/10/12/poj2411/" rel="prev" title="poj2411">
+                poj2411 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -471,17 +471,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -511,7 +502,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -523,11 +514,6 @@
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Hero22" target="_blank" title="GitHub">
-                      GitHub</a>
-                  </span>
                 
                   <span class="links-of-author-item">
                     <a href="mailto:hero22@qq.com" target="_blank" title="E-Mail">
@@ -548,22 +534,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#case1"><span class="nav-number">1.</span> <span class="nav-text">case1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case2"><span class="nav-number">2.</span> <span class="nav-text">case2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case3"><span class="nav-number">3.</span> <span class="nav-text">case3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case4"><span class="nav-number">4.</span> <span class="nav-text">case4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case5"><span class="nav-number">5.</span> <span class="nav-text">case5</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -81,12 +81,12 @@
 <meta property="og:site_name" content="趁早">
 <meta property="og:description" content="Levenshtein distance就是编辑距离，简单说就是将一个字符串A通过删除、插入、替换三种操作转化为字符串B，最少的操作数就称为编辑距离。可以通过DP实现编辑距离求解.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://image.zero22.top/levenshtein/levenshtein.png">
-<meta property="og:updated_time" content="2020-10-12T10:40:17.119Z">
+<meta property="og:image" content="https://zero22.top/2019/11/26/levenshtein-distance/fig1.png">
+<meta property="og:updated_time" content="2020-10-12T11:41:00.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Levenshtein distance">
 <meta name="twitter:description" content="Levenshtein distance就是编辑距离，简单说就是将一个字符串A通过删除、插入、替换三种操作转化为字符串B，最少的操作数就称为编辑距离。可以通过DP实现编辑距离求解.">
-<meta name="twitter:image" content="https://image.zero22.top/levenshtein/levenshtein.png">
+<meta name="twitter:image" content="https://zero22.top/2019/11/26/levenshtein-distance/fig1.png">
 
 
 
@@ -313,7 +313,7 @@
         <p><code>Levenshtein distance</code>就是编辑距离，简单说就是将一个字符串A通过删除、插入、替换三种操作转化为字符串B，最少的操作数就称为编辑距离。可以通过DP实现编辑距离求解.</p>
 <a id="more"></a>
 <h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>假设我们现在要求字符串A的前i个字符转化为字符串B的前j个字符的最小操作数，如<strong>图1</strong>所示</p>
-<p><img src="https://image.zero22.top/levenshtein/levenshtein.png" alt="图1"></p>
+<p><img src="fig1.png" alt="图1"></p>
 <p>图中的箭头表示这个状态矩阵填写的顺序，因此我们也已经有了<code>T[i-1][j]</code>, <code>T[i][j-1]</code>, <code>T[i-1][j-1]</code>等知识</p>
 <p>那么能否利用这些已经计算的值，来计算<code>T[i][j]</code>呢?</p>
 <p>在两个字符串都进行扩充时，新增加的字符有两种可能:</p>
@@ -431,17 +431,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -471,7 +462,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -483,11 +474,6 @@
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Hero22" target="_blank" title="GitHub">
-                      GitHub</a>
-                  </span>
                 
                   <span class="links-of-author-item">
                     <a href="mailto:hero22@qq.com" target="_blank" title="E-Mail">
@@ -508,22 +494,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Analysis"><span class="nav-number">1.</span> <span class="nav-text">Analysis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source"><span class="nav-number">2.</span> <span class="nav-text">Source</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">3.</span> <span class="nav-text">Other</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

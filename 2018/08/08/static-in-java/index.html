@@ -81,13 +81,13 @@
 <meta property="og:site_name" content="趁早">
 <meta property="og:description" content="java中的static想必很常见了，但是若要问到其具体的用法，你又能说出几种呢">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://image.zero22.top/LCEVBC3FJ7LK89S$%5BAADK@H.png">
-<meta property="og:image" content="https://image.zero22.top/%7DZY_%29SO%5DISN5NIYFA814%28PD.png">
-<meta property="og:updated_time" content="2020-10-12T10:39:42.339Z">
+<meta property="og:image" content="https://zero22.top/2018/08/08/static-in-java/fig1.png">
+<meta property="og:image" content="https://zero22.top/2018/08/08/static-in-java/fig2.png">
+<meta property="og:updated_time" content="2020-10-12T11:13:10.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java中的static">
 <meta name="twitter:description" content="java中的static想必很常见了，但是若要问到其具体的用法，你又能说出几种呢">
-<meta name="twitter:image" content="https://image.zero22.top/LCEVBC3FJ7LK89S$%5BAADK@H.png">
+<meta name="twitter:image" content="https://zero22.top/2018/08/08/static-in-java/fig1.png">
 
 
 
@@ -343,7 +343,7 @@
 <li>所以我们可以看到，jvm在加载StaticTwoChild时，能发现它有父类StaticTwo，所以先去加载他的父类，他的父类没有显示的父类，所以就直接加载，然后在下去加载StaticTwoChild，所以输出前两行是父类静态代码块-&gt;子类静态代码块</li>
 <li>子类在执行构造函数时，会先找父类的非默认构造方法并执行，所以下边输出结果就是先父类即StaticTwo的构造方法，再是子类即StaticTwoChild的构造方法，上边也说过了，普通代码块在每次实例化对象时都会最先执行，所以是父类普通代码块-&gt;父类构造方法-&gt;子类普通代码块-&gt;子类构造方法</li>
 </ol>
-<h3 id="static修饰内部类"><a href="#static修饰内部类" class="headerlink" title="static修饰内部类"></a>static修饰内部类</h3><p>内部类就是在一个类的内部，像定义变量方法那样，定义一个类，就叫内部类。其实在JDK中就有很多的内部类，尤其是在集合类中，比如下边:<br><img src="https://image.zero22.top/LCEVBC3FJ7LK89S$%5BAADK@H.png" alt="enter description here"><br><img src="https://image.zero22.top/%7DZY_%29SO%5DISN5NIYFA814%28PD.png" alt="enter description here"><br>还有很多就不放图了。<br>这里有会涉及静态内部类和普通内部类的区别，这里简单的说几点基本的吧:</p>
+<h3 id="static修饰内部类"><a href="#static修饰内部类" class="headerlink" title="static修饰内部类"></a>static修饰内部类</h3><p>内部类就是在一个类的内部，像定义变量方法那样，定义一个类，就叫内部类。其实在JDK中就有很多的内部类，尤其是在集合类中，比如下边:<br><img src="fig1.png" alt="enter description here"><br><img src="fig2.png" alt="enter description here"><br>还有很多就不放图了。<br>这里有会涉及静态内部类和普通内部类的区别，这里简单的说几点基本的吧:</p>
 <ol>
 <li>创建实例方式不同</li>
 <li>静态内部类中只能访问外部类中静态成员，普通内部类都行</li>
@@ -452,17 +452,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,7 +483,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -504,11 +495,6 @@
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Hero22" target="_blank" title="GitHub">
-                      GitHub</a>
-                  </span>
                 
                   <span class="links-of-author-item">
                     <a href="mailto:hero22@qq.com" target="_blank" title="E-Mail">
@@ -529,22 +515,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#static修饰变量方法"><span class="nav-number">1.</span> <span class="nav-text">static修饰变量方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static修饰代码块"><span class="nav-number">2.</span> <span class="nav-text">static修饰代码块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static修饰内部类"><span class="nav-number">3.</span> <span class="nav-text">static修饰内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态引入"><span class="nav-number">4.</span> <span class="nav-text">静态引入</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

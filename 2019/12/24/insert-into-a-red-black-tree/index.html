@@ -81,24 +81,24 @@
 <meta property="og:site_name" content="趁早">
 <meta property="og:description" content="性质 每个节点是红的或黑的 根节点是黑的 所有的叶子节点(NIL)是黑的 红色节点的孩子只能是黑的 从任一节点到叶子节点所经过的黑色节点个数相同">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://image.zero22.top/red-black/500px-Red-black_tree_example.svg.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/insert-red-black-tree.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_3.svg.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_5.svg.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_4.svg.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/delete-red-black-tree.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase1.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase2.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase3.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase4.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase5.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase6.png">
-<meta property="og:image" content="https://image.zero22.top/red-black/deletecase7.png">
-<meta property="og:updated_time" content="2020-10-12T10:05:58.737Z">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig1.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig2.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig3.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig4.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig5.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig6.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig7.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig8.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig9.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig10.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig13.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig11.png">
+<meta property="og:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig12.png">
+<meta property="og:updated_time" content="2020-10-12T11:46:58.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="insert into a red-black tree">
 <meta name="twitter:description" content="性质 每个节点是红的或黑的 根节点是黑的 所有的叶子节点(NIL)是黑的 红色节点的孩子只能是黑的 从任一节点到叶子节点所经过的黑色节点个数相同">
-<meta name="twitter:image" content="https://image.zero22.top/red-black/500px-Red-black_tree_example.svg.png">
+<meta name="twitter:image" content="https://zero22.top/2019/12/24/insert-into-a-red-black-tree/fig1.png">
 
 
 
@@ -330,30 +330,30 @@
 <li>从任一节点到叶子节点所经过的黑色节点个数相同</li>
 </ol>
 <a id="more"></a>
-<p>就像这样:<br><img src="https://image.zero22.top/red-black/500px-Red-black_tree_example.svg.png" alt></p>
+<p>就像这样:<br><img src="fig1.png" alt></p>
 <h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>不管是插入还是删除，只要能理出节点插入时其周围节点颜色的情况，就能对操作有个整体的认识。</p>
 <p>还要注意的是，在插入时，把待处理的节点默认为红色会更方便，破坏的规则更少。</p>
-<p>整体流程图：<br><img src="https://image.zero22.top/red-black/insert-red-black-tree.png" alt></p>
+<p>整体流程图：<br><img src="fig2.png" alt></p>
 <h4 id="case1"><a href="#case1" class="headerlink" title="case1"></a>case1</h4><p>如果根节点为空，则待插入节点当作根节点，并设置为黑色。</p>
 <h4 id="case2"><a href="#case2" class="headerlink" title="case2"></a>case2</h4><p>如果父节点为黑色，那么插入一个红节点不会破坏任何性质，ok</p>
 <h4 id="case3"><a href="#case3" class="headerlink" title="case3"></a>case3</h4><p>如果父节点为红色，这时候就需要考虑叔叔节点了，如果叔叔也是红色，那么就把父亲和叔叔变为黑色，爷爷变为红色，这样保持遍历该棵树时黑色节点数目不变，然后把爷爷当作待插入节点，递归处理。(因为在这里是爷爷，可能是别人的儿子)</p>
-<p><img src="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_3.svg.png" alt></p>
+<p><img src="fig3.png" alt></p>
 <h4 id="case4"><a href="#case4" class="headerlink" title="case4"></a>case4</h4><p>还是父节点为红，叔叔为黑色或没有，这时就需要旋转操作了，如果待插入节点和父亲节点在同一边，就绕着父亲节点做一次对应的旋转:</p>
-<p><img src="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_5.svg.png" alt></p>
+<p><img src="fig4.png" alt></p>
 <p>如果不在同一边，就需要先做一次旋转转到同一边，再继续。</p>
-<p><img src="https://image.zero22.top/red-black/400px-Red-black_tree_insert_case_4.svg.png" alt></p>
+<p><img src="fig5.png" alt></p>
 <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>删除的主要思想是用待删除节点的前继或后继节点替换该节点，再删除原前/后继节点，这里考虑用后继节点替换该待删除节点，(那么可知后继节点左孩子是叶子节点)，把后继节点的值copy到待删除节点上，然后只用考虑把后继节点删除就行了。因此后边的待删除节点都是☞原节点的后继节点了，不要搞错对象咯。</p>
-<p>主要流程图：<br><img src="https://image.zero22.top/red-black/delete-red-black-tree.png" alt></p>
+<p>主要流程图：<br><img src="fig6.png" alt></p>
 <h4 id="自己为红"><a href="#自己为红" class="headerlink" title="自己为红"></a>自己为红</h4><p>那么它已经没得孩子了，直接删除就好。</p>
-<p><img src="https://image.zero22.top/red-black/deletecase1.png" alt></p>
+<p><img src="fig7.png" alt></p>
 <h4 id="右孩子为红"><a href="#右孩子为红" class="headerlink" title="右孩子为红"></a>右孩子为红</h4><p>把自己删了之后，用右孩子顶上，并改为黑色。</p>
-<p><img src="https://image.zero22.top/red-black/deletecase2.png" alt></p>
+<p><img src="fig8.png" alt></p>
 <h4 id="兄弟为红"><a href="#兄弟为红" class="headerlink" title="兄弟为红"></a>兄弟为红</h4><p>通过旋转往这边均个点改为黑的。</p>
-<p><img src="https://image.zero22.top/red-black/deletecase3.png" alt></p>
-<h4 id="兄弟同边孩子为红"><a href="#兄弟同边孩子为红" class="headerlink" title="兄弟同边孩子为红"></a>兄弟同边孩子为红</h4><p><img src="https://image.zero22.top/red-black/deletecase4.png" alt></p>
-<h4 id="兄弟异边孩子为红"><a href="#兄弟异边孩子为红" class="headerlink" title="兄弟异边孩子为红"></a>兄弟异边孩子为红</h4><p><img src="https://image.zero22.top/red-black/deletecase5.png" alt></p>
-<h4 id="父亲为黑"><a href="#父亲为黑" class="headerlink" title="父亲为黑"></a>父亲为黑</h4><p>删除后把兄弟节点改为红的，这时候这个子树是没问题的，但是它作为更大的树的一部分，经过<code>P</code>的路径就会比原来少一个黑点，所以要再递归平衡<code>P</code>点。<br><img src="https://image.zero22.top/red-black/deletecase6.png" alt></p>
-<h4 id="父亲为红"><a href="#父亲为红" class="headerlink" title="父亲为红"></a>父亲为红</h4><p><img src="https://image.zero22.top/red-black/deletecase7.png" alt></p>
+<p><img src="fig9.png" alt></p>
+<h4 id="兄弟同边孩子为红"><a href="#兄弟同边孩子为红" class="headerlink" title="兄弟同边孩子为红"></a>兄弟同边孩子为红</h4><p><img src="fig10.png" alt></p>
+<h4 id="兄弟异边孩子为红"><a href="#兄弟异边孩子为红" class="headerlink" title="兄弟异边孩子为红"></a>兄弟异边孩子为红</h4><p><img src="fig13.png" alt></p>
+<h4 id="父亲为黑"><a href="#父亲为黑" class="headerlink" title="父亲为黑"></a>父亲为黑</h4><p>删除后把兄弟节点改为红的，这时候这个子树是没问题的，但是它作为更大的树的一部分，经过<code>P</code>的路径就会比原来少一个黑点，所以要再递归平衡<code>P</code>点。<br><img src="fig11.png" alt></p>
+<h4 id="父亲为红"><a href="#父亲为红" class="headerlink" title="父亲为红"></a>父亲为红</h4><p><img src="fig12.png" alt></p>
 
       
     </div>
@@ -450,17 +450,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,7 +481,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -502,11 +493,6 @@
 
           
             <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/Hero22" target="_blank" title="GitHub">
-                      GitHub</a>
-                  </span>
                 
                   <span class="links-of-author-item">
                     <a href="mailto:hero22@qq.com" target="_blank" title="E-Mail">
@@ -527,22 +513,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">1.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">2.</span> <span class="nav-text">插入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#case1"><span class="nav-number">2.1.</span> <span class="nav-text">case1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case2"><span class="nav-number">2.2.</span> <span class="nav-text">case2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case3"><span class="nav-number">2.3.</span> <span class="nav-text">case3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case4"><span class="nav-number">2.4.</span> <span class="nav-text">case4</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">3.</span> <span class="nav-text">删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自己为红"><span class="nav-number">3.1.</span> <span class="nav-text">自己为红</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#右孩子为红"><span class="nav-number">3.2.</span> <span class="nav-text">右孩子为红</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兄弟为红"><span class="nav-number">3.3.</span> <span class="nav-text">兄弟为红</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兄弟同边孩子为红"><span class="nav-number">3.4.</span> <span class="nav-text">兄弟同边孩子为红</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#兄弟异边孩子为红"><span class="nav-number">3.5.</span> <span class="nav-text">兄弟异边孩子为红</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父亲为黑"><span class="nav-number">3.6.</span> <span class="nav-text">父亲为黑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父亲为红"><span class="nav-number">3.7.</span> <span class="nav-text">父亲为红</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
