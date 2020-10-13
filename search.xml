@@ -293,7 +293,7 @@
   </entry>
   <entry>
     <title><![CDATA[LeetCode 50. Pow(x, n)]]></title>
-    <url>%2F2019%2F03%2F27%2Fpow%2F</url>
+    <url>%2F2019%2F03%2F27%2Fleetcode50%2F</url>
     <content type="text"><![CDATA[Question: Implement pow(x, n), which calculates x raised to the power n (xn). Analysis: 首先观察幂的格式，例如： 1005 = 100(0101)2 = 100(0100)2 * 100(0001)2 这样一来，我们只用从低位到高位遍历一遍指数的大小，就能计算出结果. Answer: 123456789101112131415161718class Solution &#123; public double myPow(double x, int n) &#123; double res = 1; long a = n; a = Math.abs(a); while (a != 0) &#123; if ((a &amp; 1) == 0) &#123; x = x * x; &#125; else &#123; res *= x; x = x * x; &#125; a = a &gt;&gt; 1; &#125; return n &gt; 0 ? res : 1 / res; &#125;&#125; 注意: 把指数从int转化为long类型是由于这里指数的范围是[-231, 231-1]，当指数为负数时，处理方法是按指数绝对值计算最后结果求倒数，如果不转化为long类型，当指数值为-231时，取其绝对值就会超过int类型范围. 在判断指数各个位的值时，要注意 &amp;/== 的优先级关系，因此这里与操作需要加括号.]]></content>
       <tags>
         <tag>leetcode</tag>
@@ -518,9 +518,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -536,8 +536,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>path</tag>
         <tag>linux</tag>
+        <tag>path</tag>
       </tags>
   </entry>
   <entry>
