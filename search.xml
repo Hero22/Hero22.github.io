@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[gray code]]></title>
+    <url>%2F2020%2F10%2F16%2Fgray-code%2F</url>
+    <content type="text"><![CDATA[格雷码（gray code/reflected binary code），循环二进制单位距离码，是任意两个相邻编码只有一位差异的编码，属于可靠性编码。 一个简单的例子，普通二进制中011-&gt;100(3-&gt;4)时，三个bit位都需要取反，因此在三位未完全转换时，存在6种中间状态（之转换了一位+剩一位没转换），但是格雷码中010-&gt;110只需要一位取反，避免了其他的可能。 二进制转格雷码假设四位格雷码起始为0000，则二进制abcd对应的格雷码为(0^a)(a^b)(b^c)(c^d) 二进制 格雷码 000 000 001 001 010 011 011 010 100 110 101 111 110 101 111 100 1gray = binary ^ (binary&gt;&gt;1) 格雷码转二进制1234567gray = binary ^ (binary&gt;&gt;1)# 两边同时异或 'gray &gt;&gt; 1'，即 '(binary ^ (binary&gt;&gt;1)) &gt;&gt; 1'gray ^ (binary ^ (binary&gt;&gt;1)) &gt;&gt; 1 = binary ^ (binary&gt;&gt;1) ^ (binary&gt;&gt;1) ^ (binary&gt;&gt;2) gray ^ (binary ^ (binary&gt;&gt;1)) &gt;&gt; 1 = binary ^ (binary&gt;&gt;2)# 可以发现等号右边 (binary&gt;&gt;1) 变成了 (binary&gt;&gt;2)# 以此类推，两边继续异或下去，当 (binary&gt;&gt;n) == 0时，右边就剩binary了，二左边自然就是二进制表示了# ... 其他其他生成格雷码的方法还有镜像法，观察以0为起始码的格雷码即可发现该规律]]></content>
+      <tags>
+        <tag>gray</tag>
+        <tag>binary</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 22. Generate Parentheses]]></title>
     <url>%2F2020%2F10%2F16%2Fvalid-parenthesis%2F</url>
     <content type="text"><![CDATA[假设有n对括号，让你生成所有的有效的括号序列。 分析官方给出了三种方法，一是暴力法，生成所有可能的序列，然后再判断该序列是否有效；二是回溯法，即在生成括号的过程中就进行判断，主要是根据当前左右括号的数量。 第三种方法比较类似分治？因为第一个位置一定要是个(，那么和该括号匹配的)就需要在一个奇数位置（从0开始），这样这对括号之间才能空出偶数个空，才能放置有效的括号序列，类似这样： 1(..A..)..B.. 若与第一个(匹配的)的坐标设为2*i+1(0&lt;=i&lt;n)，那么片段A就是包含i对括号的有效序列，片段B就是包含n-i-1对括号的有效序列，假设n对括号的有效序列数设为f(n)，那么就有下式： 1f(n) = f(0)*f(n-1) + f(1)*f(n-2) + ... + f(n-1)*f(0) 实现12345678910111213141516171819202122232425262728public class Beauty0403 &#123; static int n = 2; static ArrayList&lt;String&gt;[] caches = new ArrayList[2*n]; public static void main(String[] args) &#123; caches[0] = new ArrayList&lt;&gt;(); caches[0].add(""); List&lt;String&gt; generate = generate(n); System.out.println(generate); &#125; public static List&lt;String&gt; generate(int n) &#123; if (caches[n] != null) &#123; return caches[n]; &#125; caches[n] = new ArrayList&lt;&gt;(); ArrayList&lt;String&gt; ans = new ArrayList&lt;&gt;(); for (int i = 0; i &lt;= n-1; i ++) &#123; for (String sf : generate(i)) &#123; for (String ss : generate(n-i-1)) &#123; ans.add("(" + sf + ")" + ss); &#125; &#125; &#125; caches[n] = ans; return ans; &#125;&#125; 补充上述表达式和Catalan Number的定义类似，而且还有很多问题都和Catalan Number相关，比如编程之美的4.3，及其扩展问题，还有wiki上举的一些例子。 有些题目很容易理解，取值范围和Catalan Number一致时，可以直接套上边的模板，但是有个多边形划分为三角形问题，就不太一样。]]></content>
@@ -536,9 +545,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
+        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -554,8 +563,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>path</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
