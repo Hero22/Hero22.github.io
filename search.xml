@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ants crawl]]></title>
+    <url>%2F2020%2F10%2F17%2Fants-crawl%2F</url>
+    <content type="text"><![CDATA[一根细杆上有几只蚂蚁，杆子太细了以致于不能同时通过两只蚂蚁，开始时，蚂蚁的头朝向是随机的，只会朝前走或掉头，但不会后退。当任意两只蚂蚁碰头时，他们会同时调头朝反方向走，假设蚂蚁们每秒可以走1cm，求所有蚂蚁都离开木杆的最长和最短时间。 由于蚂蚁们的速度是一样的，当两个蚂蚁相遇掉头时，可以转化为互换位置，如下图所示： 虽然蚂蚁不一样了，但是需要的所有的蚂蚁离开木杆的时间，这样转换对于最终的结果是没有影响的。 12345678910111213141516171819202122232425262728293031323334import java.util.Arrays;public class Beauty0407 &#123; public static void main(String[] args) &#123; int length = 27; int[] antPos = &#123;3,7,11,17,23&#125;; System.out.println("min-max:" + Arrays.toString(calTime(length, antPos))); &#125; public static int[] calTime(int length, int[] antPos) &#123; // min time, max time int[] times = &#123;0, 0&#125;; int currentMin; int currentMax; for (int antPo : antPos) &#123; if (antPo &lt; (length &gt;&gt; 1)) &#123; // left part currentMax = length - antPo; &#125; else &#123; currentMax = antPo; // right part &#125; currentMin = length - currentMax; // reverse if (times[1] &lt; currentMax) &#123; times[1] = currentMax; &#125; if (times[0] &lt; currentMin) &#123; // 这个地方原书有点问题？ times[0] = currentMin; // 应该是计算最小值中的最大值 &#125; &#125; return times; &#125;&#125; 扩展1第i个蚂蚁，什么时候走出木杆？ 引入一个结论： 假设初始时一共N个蚂蚁，朝左的有a只，朝右的有N-a只，最终经过数次碰撞后，初始情况下从左数a只蚂蚁会从左边掉落，从右数N-a只蚂蚁会从右掉落 先考虑最简单的情况，比如只有两个蚂蚁的时候： 黑蚂蚁朝右边走，白蚂蚁朝左边走，1s后俩相遇： 然后两蚂蚁掉头，一直走到木杆尽头： 经过统计后，黑蚂蚁用时3s（先右1s，后左2s），白蚂蚁用时4s（先左1s，后右3s）。 在这种简单的情况下， 很容易发现由于两蚂蚁速度是相同的，在相遇时，两只蚂蚁走过的距离是相同的，而后黑白蚂蚁又分别掉头，可以看出黑蚂蚁走过的路程起始是白蚂蚁往左走到尽头需要的距离，而白蚂蚁走过的路程，又是黑蚂蚁往右走到尽头的距离。 在考虑三个蚂蚁的情况： 黑蚂蚁走了5格，白蚂蚁走了6格，灰蚂蚁走了4格 对比初始状态： 灰蚂蚁走过的路，正好是从右开始数，第一个朝右的白蚂蚁距离右端的距离 白蚂蚁走过的路，正好是从右开始数，第二个朝右的黑蚂蚁距离右端的距离 黑蚂蚁走过的路，正好是从左开始数，第一个朝左的灰蚂蚁距离左端的距离 推论： 当i&lt;=N-a时，说明蚂蚁i最终要掉左边，那么蚂蚁i走过的路程为从左往右数，第i个朝左的蚂蚁距离左端的距离；当i&gt;N-a时，说明蚂蚁i最终要掉右边，那么蚂蚁i走过的路程为从右往左数，第N-i+1个朝右的蚂蚁距离右端的距离 但要如何证明这个结论呢 扩展2蚂蚁一共会碰撞多少次？ 需要注意的是，一共的碰撞次数并不是所有蚂蚁碰撞次数之和，因为这样会重复计算碰撞，可以只选朝左（右）的蚂蚁作为计算单位，看他们左（右）边，朝右（左）的蚂蚁个数，就是该蚂蚁碰撞次数，这样累加标准方向的蚂蚁碰撞次数即为总的碰撞次数。]]></content>
+      <tags>
+        <tag>beautyOfProgramming</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[gray code]]></title>
     <url>%2F2020%2F10%2F16%2Fgray-code%2F</url>
     <content type="text"><![CDATA[格雷码（gray code/reflected binary code），循环二进制单位距离码，是任意两个相邻编码只有一位差异的编码，属于可靠性编码。 一个简单的例子，普通二进制中011-&gt;100(3-&gt;4)时，三个bit位都需要取反，因此在三位未完全转换时，存在6种中间状态（之转换了一位+剩一位没转换），但是格雷码中010-&gt;110只需要一位取反，避免了其他的可能。 二进制转格雷码假设四位格雷码起始为0000，则二进制abcd对应的格雷码为(0^a)(a^b)(b^c)(c^d) 二进制 格雷码 000 000 001 001 010 011 011 010 100 110 101 111 110 101 111 100 1gray = binary ^ (binary&gt;&gt;1) 格雷码转二进制1234567gray = binary ^ (binary&gt;&gt;1)# 两边同时异或 'gray &gt;&gt; 1'，即 '(binary ^ (binary&gt;&gt;1)) &gt;&gt; 1'gray ^ (binary ^ (binary&gt;&gt;1)) &gt;&gt; 1 = binary ^ (binary&gt;&gt;1) ^ (binary&gt;&gt;1) ^ (binary&gt;&gt;2) gray ^ (binary ^ (binary&gt;&gt;1)) &gt;&gt; 1 = binary ^ (binary&gt;&gt;2)# 可以发现等号右边 (binary&gt;&gt;1) 变成了 (binary&gt;&gt;2)# 以此类推，两边继续异或下去，当 (binary&gt;&gt;n) == 0时，右边就剩binary了，二左边自然就是二进制表示了# ... 其他其他生成格雷码的方法还有镜像法，观察以0为起始码的格雷码即可发现该规律]]></content>
@@ -545,9 +553,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -563,8 +571,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>path</tag>
         <tag>linux</tag>
+        <tag>path</tag>
       </tags>
   </entry>
   <entry>
