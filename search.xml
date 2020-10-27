@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode 927. Three Equal Parts]]></title>
+    <url>%2F2020%2F10%2F27%2Fleetcode927%2F</url>
+    <content type="text"><![CDATA[将一个只含1/0的数组分为三部分，使得各个部分表示的二进制的值相同，高位的0可以忽略 我想到的解比较复杂，即假设三个部分的有效长度为x，然后依次求得各个部分的结束的坐标，然后往左判断是否相等。由于前导0对二进制的值是没有影响的，因此某个部分的结束坐标可以向左平移，这样空出来的0就算到下一个部分的前导0了，当测试用例比较大时就tle了。 正确的解答是，先根据1的个数确定三个部分的大致界限，因为三个部分二进制数相等必然能推出三个部分含1的个数相同，因此当给定数组中的1的个数不能被3除尽时，就不可能存在正解；否则就找到三个片段使得其中含有的1的个数相同，又由于第三部分是要持续到数组末尾的，所有要考虑第三部分最后的0的个数，如下图： part123部分含有的1的个数相等，那么剩下的部分开头以及gap123就只剩0了，又由于part3要持续到数组结束，因此part3实际上要包含gap3的所有的0，因此当gap1或gap2小于gap3时，就说明part1或part2没法搞来那么多低位0，因此也不会有正解。经过调整后，如果存在解，那么解必然如下所示： 可以再判断一次各个部分长度是否相等，然后再以此判断各个位上是否相等即可。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546class Solution &#123; public int[] threeEqualParts(int[] A) &#123; int[] res = &#123;-1, -1&#125;; int[] former1 = new int[A.length+1]; int currentCount = 0; for (int i = 0; i &lt; A.length; i ++) &#123; if (A[i] == 1) &#123; currentCount ++; former1[currentCount] = i; &#125; &#125; if (currentCount == 0) &#123; res[0] = 0; res[1] = A.length-1; return res; &#125; if (currentCount % 3 != 0) &#123; return res; &#125; int first1Begin = former1[1]; int first1End = former1[currentCount/3]; int second1Begin = former1[currentCount/3 + 1]; int second1End = former1[currentCount/3 * 2]; int third1Begin = former1[currentCount/3 * 2 + 1]; int third1End = former1[currentCount]; if (A.length-1 - third1End &gt; third1Begin - second1End - 1 || A.length-1 - third1End &gt; second1Begin - first1End - 1) &#123; return res; &#125; for (int i = 0; i &lt;= third1End-third1Begin; i ++) &#123; if (A[third1End-i] != A[second1End-i] || A[third1End-i] != A[first1End-i]) &#123; return res; &#125; &#125; res[0] = first1End + A.length - 1 - third1End; res[1] = second1End + A.length - third1End; return res; &#125;&#125;]]></content>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>问题转换</tag>
+        <tag>我怎么想不到</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 144. Binary Tree Preorder Traversal]]></title>
+    <url>%2F2020%2F10%2F27%2Fleetcode144%2F</url>
+    <content type="text"><![CDATA[二叉树的前序遍历，除了递归，还有两种迭代的方法，一种是常见的利用栈空间复杂度为O(n)，另一种只利用树中空间指针空间复杂度为O(1). 栈利用栈的话： 从头开始遍历，用cur表示当前访问的点（直接打印值） 然后再把把cur放进栈（因为后边先只访问了它左边的子树，后边还要再取出来访问它右边的子树），cur=cur-&gt;left 当cur为空时，就从栈中弹出一个元素作为cur，再接着上述步骤，直到栈为空，cur为空 morris这种方法是由J. H. Morris在1979年提出的方法，其主要思想是通过在遍历过程中，利用每个节点cur的前驱节点pre的右指针（由于pre是cur的前驱了，因此pre的右边一定是null），将pre.right=cur，如此一来，在当前访问到尽头时，可以通过该指针在跳回到上面去，以此完成遍历。 存在如下情况： 设置cur=root, pre=null 当cur.left=null时，它已经不存在前驱了，直接访问然后向右走 当cur.left!=null时，其必然存在前驱，通过遍历找到cur的前驱pre，此时有两种情况： pre.right=null，说明这是第一次遇到cur，则对其访问，并设置pre.right=cur，cur继续向左走 pre.right=cur，说明之前已经遇到过cur了（才能这样设置），且以pre作垂线，其左边部分必然也全部访问过了，即cur左边的部分已经全部访问过了，不然cur也不会转完一圈回到之前的地方，此时cur向右走，并且把pre.right设置为空（已经没有利用价值了，并且要保持原树结构） 比如说下图的树： 当cur从1-&gt;2-&gt;4(case3.1)，虚线表示他们各自的前驱指向他们，这时候1，2，4都访问过了，接着往左走 cur=5，由于5没得前驱了，直接访问5然后往右走(case2)。由于之前的设置，cur又回到了把5当作前驱的节点4，此时符合case3.2，后续访问如下所示：]]></content>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>morris</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 1024. Video Stitching]]></title>
     <url>%2F2020%2F10%2F25%2Fleetcode1024%2F</url>
     <content type="text"><![CDATA[给定一些区间，从中选择某些区间（可重叠），使得其能完全覆盖[0, T]，返回最少需要的区间个数。 看到这一题想到了编程之美上的区间重合问题，又想一下发现求解是不同的，一个是简单的判断能否完全覆盖，一个需要最少区间的区间个数去覆盖。由于见识比较少，就想着按书上的思路来，先做个排序再说，这样一来，区间片段就按开始从小到大排序，当开始相同时，就忽略掉前边的区间，因为后边的总能把前边的区间完全覆盖掉，因此只考虑相同起始点的最后一个区间。然后挨着盘的看后边的区间能否延长当前已覆盖的区间，如果能延长的话，就把需要的区间数+1，但是这样是存在问题的，比如下边的情况，要覆盖的总区间为[0, 9] 这样的情况，在上边的简单的判断逻辑情况下，会发现每个区间都能延长前边的区间们所覆盖的区间，这样一来要覆盖完全就需要上边的所有4个区间，但其实只用3个区间就行（0-4,4-8,6-9||0-4,2-6,6-9），后来又经过长时间的冥思苦想，发现可以这样做，首先0开头的肯定是要选的，比如是[0, a]，那么后边的就可以选从[1, a]之间，能覆盖的最远的区间（看了解答后才想起来是青蛙跳）。 但是提交后，发现效率很低，那肯定是排序的影响，其实也确实是不用排序的，只需要提前处理一遍，把[0, T]之间开头的能到的最远的区间记录下来，剩下的步骤其实和上边是一样的。]]></content>
@@ -572,9 +591,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
+        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -590,8 +609,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>path</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
