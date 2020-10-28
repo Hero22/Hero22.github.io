@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode 10. Regular Expression Matching]]></title>
+    <url>%2F2020%2F10%2F28%2Fleetcode10%2F</url>
+    <content type="text"><![CDATA[给定一个含*和.的模式串，判断该模式串是否能匹配其他的字符串。 其中，*表示其前边的字符可以重复0或多次，.匹配任意单个字符 这一题和LeetCode 44. Wildcard Matching的差异在于44题中*可以匹配任意字符串，而本题中*只能匹配其前一个字符。 44题可参考https://wangz1x.github.io/2019/03/27/Wildcard-Matching 分析dp的话，dp[i][j]就表示p串的前i个能不能和s串的前j个匹配，用p[i-1]表示遍历到的p串的字符，s[j-1]表示遍历到的s串的字符，有如下几种情况： p[i-1] != * s[j-1] match p[i-1]，此时能否匹配就看前边的i-1和j-1能否匹配了，即dp[i][j] = dp[i-1][j-1] s[j-1] not match p[i-1], 此时必然不能匹配了 p[i-1] == * s[j-1] match p[i-2], 此时说明s[j-1]可以被*包括，那么具体要不要包括又分两种情况，但是目的是一样的，只要能匹配就行，因此dp[i][j] = dp[i-2][j] || dp[i][j-1] s[j-1] not match p[i-2], 此时说明s[j-1]没法被*匹配了，*只好匹配前边字符0次，看看还有没有机会继续匹配, 即dp[i][j] = dp[i-2][j] 代码1234567891011121314151617181920212223242526272829303132class Solution &#123; public boolean isMatch(String s, String p) &#123; boolean[][] dp = new boolean[p.length()+1][s.length()+1]; dp[0][0] = true; char pc; char sc; for (int i = 1; i &lt; p.length()+1; i ++) &#123; pc = p.charAt(i-1); if (pc == '*') &#123; dp[i][0] = dp[i-2][0]; &#125; for (int j = 1; j &lt; s.length() + 1; j ++) &#123; sc = s.charAt(j-1); if (pc == '*') &#123; if (sc == p.charAt(i-2) || p.charAt(i-2) == '.') dp[i][j] = dp[i][j-1] || dp[i-2][j]; else &#123; dp[i][j] = dp[i-2][j]; &#125; &#125; else if (pc == '.' || pc == sc) &#123; dp[i][j] = dp[i-1][j-1]; &#125; &#125; &#125;// System.out.println(Arrays.deepToString(dp)); return dp[p.length()][s.length()]; &#125;&#125;]]></content>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>dp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 927. Three Equal Parts]]></title>
     <url>%2F2020%2F10%2F27%2Fleetcode927%2F</url>
     <content type="text"><![CDATA[将一个只含1/0的数组分为三部分，使得各个部分表示的二进制的值相同，高位的0可以忽略 我想到的解比较复杂，即假设三个部分的有效长度为x，然后依次求得各个部分的结束的坐标，然后往左判断是否相等。由于前导0对二进制的值是没有影响的，因此某个部分的结束坐标可以向左平移，这样空出来的0就算到下一个部分的前导0了，当测试用例比较大时就tle了。 正确的解答是，先根据1的个数确定三个部分的大致界限，因为三个部分二进制数相等必然能推出三个部分含1的个数相同，因此当给定数组中的1的个数不能被3除尽时，就不可能存在正解；否则就找到三个片段使得其中含有的1的个数相同，又由于第三部分是要持续到数组末尾的，所有要考虑第三部分最后的0的个数，如下图： part123部分含有的1的个数相等，那么剩下的部分开头以及gap123就只剩0了，又由于part3要持续到数组结束，因此part3实际上要包含gap3的所有的0，因此当gap1或gap2小于gap3时，就说明part1或part2没法搞来那么多低位0，因此也不会有正解。经过调整后，如果存在解，那么解必然如下所示： 可以再判断一次各个部分长度是否相等，然后再以此判断各个位上是否相等即可。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546class Solution &#123; public int[] threeEqualParts(int[] A) &#123; int[] res = &#123;-1, -1&#125;; int[] former1 = new int[A.length+1]; int currentCount = 0; for (int i = 0; i &lt; A.length; i ++) &#123; if (A[i] == 1) &#123; currentCount ++; former1[currentCount] = i; &#125; &#125; if (currentCount == 0) &#123; res[0] = 0; res[1] = A.length-1; return res; &#125; if (currentCount % 3 != 0) &#123; return res; &#125; int first1Begin = former1[1]; int first1End = former1[currentCount/3]; int second1Begin = former1[currentCount/3 + 1]; int second1End = former1[currentCount/3 * 2]; int third1Begin = former1[currentCount/3 * 2 + 1]; int third1End = former1[currentCount]; if (A.length-1 - third1End &gt; third1Begin - second1End - 1 || A.length-1 - third1End &gt; second1Begin - first1End - 1) &#123; return res; &#125; for (int i = 0; i &lt;= third1End-third1Begin; i ++) &#123; if (A[third1End-i] != A[second1End-i] || A[third1End-i] != A[first1End-i]) &#123; return res; &#125; &#125; res[0] = first1End + A.length - 1 - third1End; res[1] = second1End + A.length - third1End; return res; &#125;&#125;]]></content>
@@ -591,9 +600,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -609,8 +618,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>path</tag>
         <tag>linux</tag>
+        <tag>path</tag>
       </tags>
   </entry>
   <entry>

@@ -62,7 +62,7 @@
 
 
 
-  <meta name="keywords" content="redis,">
+  <meta name="keywords" content="leetcode,dp,">
 
 
 
@@ -73,18 +73,20 @@
 
 
 
-<meta name="description" content="各种数据类型的应用场景以及一些小问题。">
-<meta name="keywords" content="redis">
+<meta name="description" content="给定一个含*和.的模式串，判断该模式串是否能匹配其他的字符串。 其中，*表示其前边的字符可以重复0或多次，.匹配任意单个字符">
+<meta name="keywords" content="leetcode,dp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis--基础数据">
-<meta property="og:url" content="https://zero22.top/2020/02/23/redis-1/index.html">
+<meta property="og:title" content="LeetCode 10. Regular Expression Matching">
+<meta property="og:url" content="https://zero22.top/2020/10/28/leetcode10/index.html">
 <meta property="og:site_name" content="趁早">
-<meta property="og:description" content="各种数据类型的应用场景以及一些小问题。">
+<meta property="og:description" content="给定一个含*和.的模式串，判断该模式串是否能匹配其他的字符串。 其中，*表示其前边的字符可以重复0或多次，.匹配任意单个字符">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-10-12T10:36:47.458Z">
+<meta property="og:image" content="https://zero22.top/2020/10/28/leetcode10/fig1.png">
+<meta property="og:updated_time" content="2020-10-28T07:57:15.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis--基础数据">
-<meta name="twitter:description" content="各种数据类型的应用场景以及一些小问题。">
+<meta name="twitter:title" content="LeetCode 10. Regular Expression Matching">
+<meta name="twitter:description" content="给定一个含*和.的模式串，判断该模式串是否能匹配其他的字符串。 其中，*表示其前边的字符可以重复0或多次，.匹配任意单个字符">
+<meta name="twitter:image" content="https://zero22.top/2020/10/28/leetcode10/fig1.png">
 
 
 
@@ -118,7 +120,7 @@
 
 
 
-  <title>redis--基础数据 | 趁早</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>LeetCode 10. Regular Expression Matching | 趁早</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -251,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zero22.top/2020/02/23/redis-1/">
+    <link itemprop="mainEntityOfPage" href="https://zero22.top/2020/10/28/leetcode10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangz1x">
@@ -268,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">redis--基础数据</h1>
+          <h1 class="post-title" itemprop="name headline">LeetCode 10. Regular Expression Matching</h1>
         
 
         <div class="post-meta">
@@ -308,50 +310,26 @@
       
 
       
-        <p>各种数据类型的应用场景以及一些小问题。</p>
+        <p>给定一个含<code>*</code>和<code>.</code>的模式串，判断该模式串是否能匹配其他的字符串。</p>
+<p>其中，<code>*</code>表示其前边的字符可以重复0或多次，<code>.</code>匹配任意单个字符</p>
 <a id="more"></a>
-<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><ol>
-<li>单数据操作与多数据操作，考虑指令在应用服务器和<code>Redis</code>之间的传输消耗。<code>set</code>,<code>mset</code></li>
-<li><code>redis</code>用于控制数据库表主键id，为数据库表主键提供生成策略，保障数据库表主键的唯一性。<code>incr</code></li>
-<li><code>redis</code>用于控制数据的生命周期。<code>setex</code>,<code>psetex</code> 投票</li>
-<li><code>redis</code>用于各种结构型和非结构型高热度数据的加速访问。</li>
-<li>分布式锁。<code>setnx</code></li>
-</ol>
-<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><ol>
-<li><code>value</code>字段只能存储字符串，不能套娃。</li>
-<li>每个<code>hash</code>最多可存2<sup>32</sup>-1个键值对.</li>
-<li><code>hash</code>设计的初衷不是为了存储大量对象数据，不可滥用。</li>
-<li><code>hgetall</code>可能成为性能瓶颈。</li>
-<li><code>redis</code>用于抢购，限购，限量，激活码等业务的数据存储设计。</li>
-</ol>
-<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><ol>
-<li><p>底层使用双向链表存储结构实现。</p>
+<p>这一题和<a href="https://leetcode-cn.com/problems/wildcard-matching/" target="_blank" rel="noopener">LeetCode 44. Wildcard Matching</a>的差异在于44题中<code>*</code>可以匹配任意字符串，而本题中<code>*</code>只能匹配其前一个字符。</p>
+<p>44题可参考<a href="https://wangz1x.github.io/2019/03/27/Wildcard-Matching" target="_blank" rel="noopener">https://wangz1x.github.io/2019/03/27/Wildcard-Matching</a></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>dp的话，dp[i][j]就表示p串的前i个能不能和s串的前j个匹配，用p[i-1]表示遍历到的p串的字符，s[j-1]表示遍历到的s串的字符，有如下几种情况：</p>
+<ol>
+<li><code>p[i-1] != *</code><ul>
+<li><code>s[j-1] match p[i-1]</code>，此时能否匹配就看前边的i-1和j-1能否匹配了，即dp[i][j] = dp[i-1][j-1]</li>
+<li><code>s[j-1] not match p[i-1]</code>, 此时必然不能匹配了</li>
+</ul>
 </li>
-<li><p>获取数据大多是从左操作的。<code>lrange</code>, <code>lindex</code>, <code>llen</code></p>
-</li>
-<li><p>消息队列/任务队列。 <code>blpop</code>, <code>brpop</code></p>
-</li>
-<li><p><code>redis</code>用于具有操作先后顺序的数据控制。点赞</p>
-</li>
-<li><p><code>list</code>中存储的数据都是<code>string</code>类型，最多存2<sup>32</sup>-1个。</p>
-</li>
-<li><p><code>redis</code>实现最新消息的展示。</p>
+<li><code>p[i-1] == *</code> <ul>
+<li><code>s[j-1] match p[i-2]</code>, 此时说明s[j-1]可以被<code>*</code>包括，那么具体要不要包括又分两种情况，但是目的是一样的，只要能匹配就行，因此dp[i][j] = dp[i-2][j] || dp[i][j-1]</li>
+<li><code>s[j-1] not match p[i-2]</code>, 此时说明s[j-1]没法被<code>*</code>匹配了，<code>*</code>只好匹配前边字符0次，看看还有没有机会继续匹配, 即dp[i][j] = dp[i-2][j]</li>
+</ul>
 </li>
 </ol>
-<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><ol>
-<li>与<code>hash</code>存储结构完全相同，<code>field</code>即为值, <code>value</code>为空nil。</li>
-<li>随机推送。 <code>srandmember</code>, <code>spop</code></li>
-<li><code>redis</code>用于同类信息的关联搜索，二度/深度关联搜索。<code>sinter</code>, <code>sunion</code>, <code>sdiff</code> 关注模型</li>
-<li><code>redis</code>用于同类型不重复数据的合并操作。权限验证</li>
-<li><code>redis</code>用于同类型数据的快速去重。统计访问量</li>
-<li><code>redis</code>基于黑白名单的服务控制。</li>
-</ol>
-<h3 id="sorted-set"><a href="#sorted-set" class="headerlink" title="sorted_set"></a>sorted_set</h3><ol>
-<li><code>redis</code>用于计数器组合排序功能对应的排名。 </li>
-<li><code>score</code>数据的存储空间是64位的。</li>
-<li><code>redis</code>用于定时任务执行顺序管理或任务过期管理。</li>
-<li><code>redis</code>应用于及时任务/消息队列执行管理。 <code>zrevrange</code> </li>
-</ol>
+<p><img src="fig1.png" alt="fig1"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isMatch</span><span class="params">(String s, String p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[p.length()+<span class="number">1</span>][s.length()+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">char</span> pc;</span><br><span class="line">        <span class="keyword">char</span> sc;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; p.length()+<span class="number">1</span>; i ++) &#123;</span><br><span class="line">            pc = p.charAt(i-<span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (pc == <span class="string">'*'</span>) &#123;</span><br><span class="line">                dp[i][<span class="number">0</span>] = dp[i-<span class="number">2</span>][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; s.length() + <span class="number">1</span>; j ++) &#123;</span><br><span class="line">                sc = s.charAt(j-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (pc == <span class="string">'*'</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (sc == p.charAt(i-<span class="number">2</span>) || p.charAt(i-<span class="number">2</span>) == <span class="string">'.'</span>)</span><br><span class="line">                        dp[i][j] = dp[i][j-<span class="number">1</span>] || dp[i-<span class="number">2</span>][j];</span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        dp[i][j] = dp[i-<span class="number">2</span>][j];</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (pc == <span class="string">'.'</span> || pc == sc) &#123;</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        System.out.println(Arrays.deepToString(dp));</span></span><br><span class="line">        <span class="keyword">return</span> dp[p.length()][s.length()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -369,7 +347,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/redis/" rel="tag"># redis</a>
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+            <a href="/tags/dp/" rel="tag"># dp</a>
           
         </div>
       
@@ -382,8 +362,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/13/tar-and-gz/" rel="next" title=".tar and .gz">
-                <i class="fa fa-chevron-left"></i> .tar and .gz
+              <a href="/2020/10/27/leetcode927/" rel="next" title="LeetCode 927. Three Equal Parts">
+                <i class="fa fa-chevron-left"></i> LeetCode 927. Three Equal Parts
               </a>
             
           </div>
@@ -391,10 +371,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/24/redis-2/" rel="prev" title="redis--通用指令">
-                redis--通用指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
