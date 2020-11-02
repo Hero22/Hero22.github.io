@@ -82,7 +82,7 @@
 <meta property="og:description" content="leetcode第213场周赛，四个题目：  能否连接形成数组 统计字典序元音字符串的数目 可以到达的最远建筑 第K条最小指令">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://zero22.top/2020/11/01/leetcode213week/fig1.png">
-<meta property="og:updated_time" content="2020-11-01T07:44:41.623Z">
+<meta property="og:updated_time" content="2020-11-01T08:54:30.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode213Week">
 <meta name="twitter:description" content="leetcode第213场周赛，四个题目：  能否连接形成数组 统计字典序元音字符串的数目 可以到达的最远建筑 第K条最小指令">
@@ -312,8 +312,8 @@
       
         <p>leetcode第213场周赛，四个题目：</p>
 <ul>
-<li><a href="###能否连接形成数组">能否连接形成数组</a></li>
-<li><a href="###统计字典序元音字符串的数目">统计字典序元音字符串的数目</a></li>
+<li><a href="#能否连接形成数组">能否连接形成数组</a></li>
+<li><a href="#统计字典序元音字符串的数目">统计字典序元音字符串的数目</a></li>
 <li>可以到达的最远建筑</li>
 <li>第K条最小指令</li>
 </ul>
@@ -328,9 +328,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">countVowelStrings</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] count = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i ++) &#123;</span><br><span class="line">            count[<span class="number">0</span>] = count[<span class="number">0</span>] + count[<span class="number">1</span>] + count[<span class="number">2</span>] + count[<span class="number">3</span>] + count[<span class="number">4</span>];</span><br><span class="line">            count[<span class="number">1</span>] = count[<span class="number">1</span>] + count[<span class="number">2</span>] + count[<span class="number">3</span>] + count[<span class="number">4</span>];</span><br><span class="line">            count[<span class="number">2</span>] = count[<span class="number">2</span>] + count[<span class="number">3</span>] + count[<span class="number">4</span>];</span><br><span class="line">            count[<span class="number">3</span>] = count[<span class="number">3</span>] + count[<span class="number">4</span>];</span><br><span class="line">            count[<span class="number">4</span>] = count[<span class="number">4</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count[<span class="number">0</span>] + count[<span class="number">1</span>] + count[<span class="number">2</span>] + count[<span class="number">3</span>] + count[<span class="number">4</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="可以到达的最远建筑"><a href="#可以到达的最远建筑" class="headerlink" title="可以到达的最远建筑"></a>可以到达的最远建筑</h3><p><a href="https://leetcode-cn.com/problems/furthest-building-you-can-reach/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/furthest-building-you-can-reach/</a></p>
 <p>开始试着用dfs，即每当有个槛儿时，分别用砖头和梯子，看谁到的远就用谁，果然超时了。</p>
-<p>后来又想，只要把梯子放在遇到的比较高的地方，其他的用砖头就好了，因此就用优先队列把遇到的槛儿都记录下来，而优先队列里边的就用梯子，当梯子用完了，就从队列里边找个最矮的槛换成砖头，如果砖头不够用了，那就不能再前进了（因为只有当梯子没得了才会考虑砖头哇）</p>
+<p>后来又想，只要把梯子放在遇到的比较高的地方，其他的用砖头就好了，因此就用优先队列把遇到的槛儿都记录下来，优先队列里边的就用梯子，当梯子用完了，就从队列里边找个最矮的槛换成砖头，如果砖头不够用了，那就不能再前进了（因为此时梯子和砖头都不够哇）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">furthestBuilding</span><span class="params">(<span class="keyword">int</span>[] heights, <span class="keyword">int</span> bricks, <span class="keyword">int</span> ladders)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ladders &gt;= heights.length - <span class="number">1</span>) <span class="keyword">return</span> heights.length - <span class="number">1</span>;</span><br><span class="line">        Queue&lt;Integer&gt; deque = <span class="keyword">new</span> PriorityQueue&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; heights.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (heights[i] - heights[i - <span class="number">1</span>] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// use ladders</span></span><br><span class="line">                deque.add(heights[i] - heights[i - <span class="number">1</span>]);</span><br><span class="line">                <span class="comment">// not enough ladders</span></span><br><span class="line">                <span class="keyword">if</span> (deque.size() &gt; ladders) &#123;</span><br><span class="line">                    <span class="comment">// replace shortest</span></span><br><span class="line">                    <span class="keyword">if</span> (bricks &gt;= deque.peek()) bricks -= deque.poll();</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> i - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发现一样的思路，按照大佬们的逻辑简化了代码，发现时间和内存都多了一点，不过这样看起来是真的简单，令人愉悦</p>
+<p>一样的思路，按照大佬们的逻辑简化了代码，发现时间和内存都多了一点，不过这样看起来是真的简约，令人愉悦</p>
 <h3 id="第K条最小指令"><a href="#第K条最小指令" class="headerlink" title="第K条最小指令"></a>第K条最小指令</h3><p><a href="https://leetcode-cn.com/problems/kth-smallest-instructions/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/kth-smallest-instructions/</a></p>
 <p>记<code>choice[i, j]</code>为位于<code>(i, j)</code>时，到达目的地的线路个数，则<code>choice[i, j]=choice[i+1, j] + choice[i, j+1]</code>，那么可以先把最后一排和最后一列初始化为1，然后从右下角开始填满整个二维数组。</p>
 <p>可以预见的，往右的优先级要高于往下的优先级（对于字典序来说），因此比较朝右的选择数和K，如果朝右的选择数大于k，就往右走；否则往下走，并且更新k，看它往下的选择中排老几。</p>
@@ -382,6 +382,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/01/os-process/" rel="prev" title="操作系统中的进程">
+                操作系统中的进程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -451,7 +455,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">76</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -464,7 +468,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -478,7 +482,7 @@
             <div class="links-of-author motion-element">
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:hero22@qq.com" target="_blank" title="E-Mail">
+                    <a href="mailto:wangzx22@163.com" target="_blank" title="E-Mail">
                       E-Mail</a>
                   </span>
                 
