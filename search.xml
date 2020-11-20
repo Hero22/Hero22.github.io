@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mysql-in-docker]]></title>
+    <url>%2F2020%2F11%2F20%2Fmysql-in-docker%2F</url>
+    <content type="text"><![CDATA[问题1在docker中启动一个mysql容器，在容器外部进行连接的时候，指定ip可以为127.0.0.1，也可以为本机（运行docker的机器）的ip，还可以为docker为该容器分配的ip（docker inspect container_name），啊 问题2这个问题我自己没有遇到，在查看ip相关的blog时，发现有人提到这一点，就是用5.7的mysql client去连接8.0的mysql server会由于两个版本验证方式不同而无法连接，需要修改mysql server中的认证方式： 这样查看plugin（不晓得怎么翻译）1select host,user,plugin from mysql.user; 8.0的应该是caching_sha2_password，需要修改5.7用的mysql_native_password: 12alter user 'root'@'%' identified with mysql_native_password by 'your_password';flush privileges; 一般blog都说要加上后边的密码，但是我这不加密码也行？ 太多问题了]]></content>
+      <tags>
+        <tag>mysql</tag>
+        <tag>docker</tag>
+        <tag>question</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[password free using sudo]]></title>
+    <url>%2F2020%2F11%2F19%2Fpassword-free-using-sudo%2F</url>
+    <content type="text"><![CDATA[可能有两种方式，但都是修改一个文件：/etc/sudoers 查看这个文件，要求必须使用visudo命令修改!!! 修改方式一 将当前想体验免密码的用户加到sudo用户组里，可以直接编辑/etc/group文件，或者使用usermod -G sudo current_user 命令sudo visudo，将%sudo ALL=(ALL:ALL) ALL -&gt; %sudo ALL=(ALL:ALL) NOPASSWD:ALL 修改方式二命令sudo visudo，将在%sudo ALL=(ALL:ALL) ALL行下补充 -&gt; username ALL=(ALL) NOPASSWD:ALL 但是生效好像要重启，暂时先这样 额外%sudo ALL=(ALL:ALL) ALL 对应表示：授权用户组（加%）/用户 在哪个主机登录可进行授权=（切换到哪些用户：切换到哪些组）[是否需要密码] 可授权执行的命令]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux修改密码]]></title>
+    <url>%2F2020%2F11%2F19%2Fmodify-password%2F</url>
+    <content type="text"><![CDATA[修改linux中root的密码： 1sudo passwd 不管之前有没有设置过密码，都直接输入新密码，然后确认一遍即可。 修改linux中普通用户的密码： 1passwd 需要输入原密码，在该新密码然后确认； 或者先切换到root，使用 1passwd username 直接修改用户的密码]]></content>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 327. 区间和的个数]]></title>
+    <url>%2F2020%2F11%2F09%2Fleetcode327%2F</url>
+    <content type="text"><![CDATA[归并的要点在于： 理解为啥排序后不会对满足条件的数值个数不会产生影响，其他排序能用嘛 在两个排序的数组中找到特定区间的值，的方法 线段树的要点在于： 知道线段树是什么，比如我之前没听过，为了看懂这个方法，索性就照着代码把整个过程画出来 问题转换后就不要在对原问题中某个点在新问题中的含义做过深的探究，就好比递归一样，既然已经转化问题了，就专心处理新问题就好（特指对于preSum[0]的考虑） 如果后续真的入了pad+pencil，就可以方便的画图+欣赏了]]></content>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>归并排序</tag>
+        <tag>线段树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 33. 搜索旋转排序数组]]></title>
     <url>%2F2020%2F11%2F03%2Fleetcode33%2F</url>
     <content type="text"><![CDATA[首先有一个递增的数组，它会在某一位进行旋转，就是把后边的放到前边去，然后需要查找一个元素 首先确定是二分，但是和普通的二分不一样，会存在两种情况（mid为断层的情况也包含了）： 这两种情况可以按照nums[mid]和nums[start]（nums[end]也可以）的大小来判断 nums[mid] &gt; nums[start], 则是左边情况 否则就是右边情况 先确定好这两种大的情况后，在继续分左右讨论，这里以第一种情况为例： 如果是下图这样，就把end挪到mid那； 如果不是上图那样，就把start挪到mid那。 第二种情况类似，不再赘述。 12345678910111213141516171819202122232425262728293031323334class Solution &#123; public int search(int[] nums, int target) &#123; if (nums.length == 1) return nums[0] == target ? 0 : -1; if (nums[0] &gt; target &amp;&amp; nums[nums.length-1] &lt; target) return -1; // (begin+end)/2: four int start = 0; int end = nums.length -1; while (start &lt;= end) &#123; int mid = (start+end) &gt;&gt;&gt; 1; if (nums[mid] == target) return mid; // 第二种情况 if (nums[mid] &lt; nums[end]) &#123; // target在左边 if (target &lt; nums[mid] || target &gt; nums[end]) &#123; end = mid - 1; &#125;// target在右边 else &#123; start = mid + 1; &#125; &#125; // 第一种情况 else &#123; if (target &gt; nums[mid] || target &lt; nums[start]) &#123; start = mid + 1; &#125; else &#123; end = mid - 1; &#125; &#125; &#125; return -1; &#125;&#125; 小结开始想的时候，情况分的太细了，想着直接用if… else if… else if… else if…直接把脑袋想炸了，可以的话还是先大情况，再分小情况，Orz]]></content>
@@ -680,9 +716,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -698,8 +734,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>path</tag>
         <tag>linux</tag>
+        <tag>path</tag>
       </tags>
   </entry>
   <entry>
