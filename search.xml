@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[github connection timed out]]></title>
+    <url>%2F2020%2F11%2F23%2Fgithub-connection-timed-out%2F</url>
+    <content type="text"><![CDATA[修改协议很麻烦，无法保证修改后可以使用，那就直接在.ssh下新建config文件，内容如下： 123Host github.comHostname ssh.github.comPort 443 但是就算这样改了，也不能保证一定可行，那就过一段时间在push]]></content>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[mysql-in-docker]]></title>
     <url>%2F2020%2F11%2F20%2Fmysql-in-docker%2F</url>
     <content type="text"><![CDATA[问题1在docker中启动一个mysql容器，在容器外部进行连接的时候，指定ip可以为127.0.0.1，也可以为本机（运行docker的机器）的ip，还可以为docker为该容器分配的ip（docker inspect container_name），啊 问题2这个问题我自己没有遇到，在查看ip相关的blog时，发现有人提到这一点，就是用5.7的mysql client去连接8.0的mysql server会由于两个版本验证方式不同而无法连接，需要修改mysql server中的认证方式： 这样查看plugin（不晓得怎么翻译）1select host,user,plugin from mysql.user; 8.0的应该是caching_sha2_password，需要修改5.7用的mysql_native_password: 12alter user 'root'@'%' identified with mysql_native_password by 'your_password';flush privileges; 一般blog都说要加上后边的密码，但是我这不加密码也行？ 太多问题了]]></content>
@@ -716,9 +724,9 @@
     <url>%2F2018%2F06%2F12%2Fjob%2F</url>
     <content type="text"><![CDATA[在使用linux过程中，偶尔会不自觉的按ctrl + z，这时候会显示[1]+ Stopped 之类的，而且如果这时候你在做一些操作，比如编辑文件等，会直接回到命令状态。那么之前的工作去哪了呢? 去了Stopped于后台中了。 这是输入jobs命令，就可以查看Linux中的任务列表及任务状态，包括后台运行的任务。 bg(background) 将后台暂停的任务启动，在后台继续运行 fg(foreground) 将后台任务调至前台执行 &amp; 放在命令的最后，用于将任务放在后台执行]]></content>
       <tags>
+        <tag>linux</tag>
         <tag>bg</tag>
         <tag>fg</tag>
-        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
@@ -734,8 +742,8 @@
     <url>%2F2018%2F05%2F21%2Flinux_env%2F</url>
     <content type="text"><![CDATA[有些东西不自己写一下，总是会忘记，当然写了也可能还是会忘，但是找起来印象会深一点吧。之前在需要配置环境变量的时候就直接查了一下，完成配置后就没管了，最近再次想到这个问题，结果已经忘记该怎么配置了。所以什么东西都是写一下比较好吧. 方式一：使用export使用export命令直接修改PATH变量 方式二：修改/etc/profile 如果要立即生效需要执行命令 source /etc/profile 使用这种方式，所有用户都会受影响,当第一个用户登录时,该文件被执行. 类似的还有/etc/enviroment文件，影响所有用户 方式三：修改~/.bashrc 同样立即生效需要： source ~/.bashrc 专属于个人bash shell的信息，当该用户登录时以及每次打开新的shell时,该文件被读取. 类似的还有~/.profile，当用户登录时,该文件仅仅执行一次!默认情况下,它设置一些环境变量,然后执行用户的.bashrc文件.]]></content>
       <tags>
-        <tag>linux</tag>
         <tag>path</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
